@@ -7,9 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="excelAnnotationTestProject5" />
         <module name="excelAnnotationTestProject4" />
         <module name="excelAnnotationTestProject3" />
+        <module name="excel-simple-download" />
       </profile>
     </annotationProcessing>
   </component>
