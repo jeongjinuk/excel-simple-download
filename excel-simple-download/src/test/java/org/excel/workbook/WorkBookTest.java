@@ -35,7 +35,6 @@ public class WorkBookTest {
                                 .build()
                 ).collect(Collectors.toList());
     }
-
     @Test
     @DisplayName("엑셀 DTO 설정 정상동작 여부 확인 테스트")
     void SXXFSExcelFileTest() {
@@ -43,12 +42,10 @@ public class WorkBookTest {
         Workbook workbook = mySXXFS.getWorkbook();
         assertThat(workbook);
     }
-
     void assertThat(Workbook workbook) {
         assertFormula(workbook);
         assertStyle(workbook);
     }
-
     @DisplayName("formula 정상 동작 테스트, 수식에 countif(range,'*true') 수식이 정상적으로 들어가있는지 확인")
     void assertFormula(Workbook workbook) {
         Sheet sheet = workbook.getSheetAt(0);
@@ -56,7 +53,6 @@ public class WorkBookTest {
         String cellFormula = sheet.getRow(list.size()).getCell(3).getCellFormula();
         assertEquals(counterFormula, cellFormula);
     }
-
     @DisplayName("DTO에 설정된 style이 정상적으로 동작하는지 확인 : 확인 필드 목록 [name, address, date]")
     void assertStyle(Workbook workbook) {
         Sheet sheet = workbook.getSheetAt(0);
@@ -80,7 +76,6 @@ public class WorkBookTest {
         assertEquals(workbook.createDataFormat().getFormat("@@@"), bodyAddress.getCellStyle().getDataFormat());
         assertEquals(workbook.createDataFormat().getFormat("AM/PM h:mm:ss;@"), bodyDate.getCellStyle().getDataFormat());
     }
-
     void assertStyle(CellStyle o1, CellStyle o2){
         assertEquals(o1.getBorderBottom(), o2.getBorderBottom());
         assertEquals(o1.getBorderLeft(), o2.getBorderLeft());
@@ -91,6 +86,8 @@ public class WorkBookTest {
         assertEquals(o1.getFillPattern(), o2.getFillPattern());
     }
     Map<String, CellStyle> getStyle(Workbook workbook) {
+        Map<String, CellStyle> map = new HashMap<>();
+
         DefaultHeaderStyle defaultHeaderStyle = new DefaultHeaderStyle();
         DefaultBodyStyle defaultBodyStyle = new DefaultBodyStyle();
         BackgroundBlueAndEnableDefaultStyle backgroundBlueAndEnableDefaultStyle = new BackgroundBlueAndEnableDefaultStyle();
@@ -113,9 +110,15 @@ public class WorkBookTest {
         thinLine.configure(headerDate);
         defaultBodyStyle.configure(bodyDate);
 
-        return Map.of("headerName", headerName, "headerDate", headerDate, "bodyAddress", bodyAddress, "bodyDate", bodyDate);
+
+        map.put("headerName", headerName);
+        map.put("headerDate", headerDate);
+        map.put("bodyAddress", bodyAddress);
+        map.put("bodyDate", bodyDate);
+        return map;
     }
     Map<String, List<Cell>> getExcelSheetMap(List<Row> rows) {
+        Map<String, List<Cell>> map = new HashMap<>();
         Row header = rows.remove(0);
         Row body = rows.remove(1);
 
@@ -125,6 +128,8 @@ public class WorkBookTest {
         header.iterator().forEachRemaining(headerCells :: add);
         body.iterator().forEachRemaining(bodyCells :: add);
 
-        return Map.of("header", headerCells, "body", bodyCells);
+        map.put("header", headerCells);
+        map.put("body", bodyCells);
+        return map;
     }
 }

@@ -21,7 +21,6 @@ public class MySXXFS<T> extends ExcelFile<T> {
             throw  new IllegalArgumentException(String.format("%s Excel does not support over %s rows", excel2007, excel2007.getMaxRows()));
         }
     }
-
     @Override
     protected void renderExcel(List<T> data) {
         Sheet sheet = getWorkbook().createSheet();

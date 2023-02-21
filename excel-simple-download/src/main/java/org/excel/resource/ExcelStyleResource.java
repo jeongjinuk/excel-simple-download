@@ -9,7 +9,6 @@ import java.util.Map;
 public final class ExcelStyleResource {
     private final Map<String, CellStyle> headerMap = new HashMap<>();
     private final Map<String, CellStyle> bodyMap = new HashMap<>();
-
     ExcelStyleResource() {}
     void put(StyleLocation styleLocation, String key, CellStyle cellStyle){
         switch (styleLocation){

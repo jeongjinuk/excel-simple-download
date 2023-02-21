@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExcelResourceFactoryTest {
-    private List<String> fieldList = Arrays.asList("name","address","age","is");
+    private List<String> fieldList = Arrays.asList("name","address","age","is","date");
     private String notExistFieldName = "email";
     private Counter counter = new Counter();
 
