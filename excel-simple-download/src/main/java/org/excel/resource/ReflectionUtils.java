@@ -24,7 +24,6 @@ public final class ReflectionUtils {
                 .flatMap(Arrays :: stream)
                 .collect(Collectors.toList());
     }
-
     static <T> T getInstance(Class<T> clazz) {
         try {
             Constructor<?> constructor = clazz.getDeclaredConstructor();

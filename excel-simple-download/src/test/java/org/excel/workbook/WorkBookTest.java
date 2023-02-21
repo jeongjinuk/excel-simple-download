@@ -1,14 +1,18 @@
 package org.excel.workbook;
 
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.excel.dto.TestDTO;
+import org.excel.excel.sheet.SheetHelper;
+import org.excel.style.BackgroundBlueAndEnableDefaultStyle;
+import org.excel.style.DefaultBodyStyle;
+import org.excel.style.DefaultHeaderStyle;
+import org.excel.style.ThinLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,92 +22,109 @@ public class WorkBookTest {
     private List<TestDTO> list;
 
     @BeforeEach
-    void init(){
+    void init() {
         String email = "@test.com";
-        this.list = IntStream.rangeClosed(0,50)
-                .mapToObj(operand ->
-                        TestDTO.builder()
-                                .name(String.valueOf(operand*10000))
-                                .address(String.format("%s, %s%s - %s", operand,operand,operand,operand))
-                                .email(operand + email)
-                                .age(operand)
-                                .is(operand%2 == 1)
-                                .build()
-                ).collect(Collectors.toList());
-    }
-    @Test
-    @DisplayName("엑셀 DTO 설정 정상동작 여부 확인 테스트")
-    void SXXFSExcelFileTest(){
-        MySXXFS<TestDTO> mySXXFS = new MySXXFS<>(list, TestDTO.class);
-        Workbook workbook = mySXXFS.getWorkbook();
-        assertThat(workbook);
-    }
-
-    @Test
-    void workbookMade(){
-        String email = "@test.com";
-        List<TestDTO> collect = IntStream.rangeClosed(0, 10)
+        this.list = IntStream.rangeClosed(0, 50)
                 .mapToObj(operand ->
                         TestDTO.builder()
                                 .name(String.valueOf(operand * 10000))
                                 .address(String.format("%s, %s%s - %s", operand, operand, operand, operand))
                                 .email(operand + email)
-                                .age(operand*10000)
+                                .age(operand)
                                 .is(operand % 2 == 1)
-                                .date(LocalDate.now().minusDays(operand))
                                 .build()
                 ).collect(Collectors.toList());
+    }
 
-        MySXXFS<TestDTO> mySXXFS = new MySXXFS<>(collect, TestDTO.class);
+    @Test
+    @DisplayName("엑셀 DTO 설정 정상동작 여부 확인 테스트")
+    void SXXFSExcelFileTest() {
+        MySXXFS<TestDTO> mySXXFS = new MySXXFS<>(list, TestDTO.class);
         Workbook workbook = mySXXFS.getWorkbook();
+        assertThat(workbook);
     }
 
-    void assertThat(Workbook workbook){
+    void assertThat(Workbook workbook) {
         assertFormula(workbook);
+        assertStyle(workbook);
     }
+
     @DisplayName("formula 정상 동작 테스트, 수식에 countif(range,'*true') 수식이 정상적으로 들어가있는지 확인")
-    void assertFormula(Workbook workbook){
+    void assertFormula(Workbook workbook) {
         Sheet sheet = workbook.getSheetAt(0);
         String counterFormula = "COUNTIF(D2:D51,\"*true\")";
         String cellFormula = sheet.getRow(list.size()).getCell(3).getCellFormula();
         assertEquals(counterFormula, cellFormula);
     }
-    @DisplayName("Style test 변경중 - DTO에 설정된 style이 정상적으로 동작하는지 확인 : 확인 필드 목록 [name, address, is]")
-    void assertStyle(Workbook workbook){
-/*        Sheet sheet = workbook.getSheetAt(0);
-        // default
-        CellStyle headerName = sheet.getRow(0).getCell(0).getCellStyle();
-        CellStyle bodyName = sheet.getRow(1).getCell(0).getCellStyle();
-        CellStyle headerAge = sheet.getRow(0).getCell(2).getCellStyle();
-        CellStyle bodyAge = sheet.getRow(1).getCell(2).getCellStyle();
 
-        //each
-        CellStyle headerAddress = sheet.getRow(0).getCell(1).getCellStyle();
-        CellStyle headerIs = sheet.getRow(0).getCell(3).getCellStyle();
-        CellStyle bodyIs = sheet.getRow(1).getCell(3).getCellStyle();
+    @DisplayName("DTO에 설정된 style이 정상적으로 동작하는지 확인 : 확인 필드 목록 [name, address, date]")
+    void assertStyle(Workbook workbook) {
+        Sheet sheet = workbook.getSheetAt(0);
 
-        // style
-        CellStyle defaultHeaderStyle = workbook.createCellStyle();
-        CellStyle defaultBodyStyle = workbook.createCellStyle();
-        CellStyle doubleBorderStyle = workbook.createCellStyle();
-        CellStyle indigoBackgroundStyle = workbook.createCellStyle();
+        List<Row> rows = new ArrayList<>();
+        sheet.iterator().forEachRemaining(rows :: add);
+        Map<String, List<Cell>> excelSheetMap = getExcelSheetMap(rows);
 
-        new DefaultHeaderStyle().setStyle(defaultHeaderStyle);
-        new DefaultBodyStyle().setStyle(defaultBodyStyle);
-        new DefaultHeaderStyle().setStyle(defaultHeaderStyle);
-        new DefaultBodyStyle().setStyle(defaultBodyStyle);
-        new DoubleBorderLine().setStyle(doubleBorderStyle);
-        new IndigoBackgroundColor().setStyle(indigoBackgroundStyle);
+        Cell headerName = excelSheetMap.get("header").get(0);
+        Cell headerDate = excelSheetMap.get("header").get(4);
+        Cell bodyAddress = excelSheetMap.get("body").get(1);
+        Cell bodyDate = excelSheetMap.get("body").get(4);
 
-        // assert
-        // default [name, age] field
-        assertEquals(defaultHeaderStyle, headerName);
-        assertEquals(defaultHeaderStyle, headerAge);
-        assertEquals(defaultBodyStyle, bodyName);
-        assertEquals(defaultBodyStyle, bodyAge);
-        //each [address, is] field
-        assertEquals(doubleBorderStyle, headerAddress);
-        assertEquals(doubleBorderStyle, headerIs);
-        assertEquals(indigoBackgroundStyle, bodyIs);*/
+        Map<String, CellStyle> style = getStyle(workbook);
+
+        assertStyle(style.get("headerName"), headerName.getCellStyle());
+        assertStyle(style.get("headerDate"), headerDate.getCellStyle());
+        assertStyle(style.get("bodyAddress"), bodyAddress.getCellStyle());
+        assertStyle(style.get("bodyDate"), bodyDate.getCellStyle());
+
+        assertEquals(workbook.createDataFormat().getFormat("@@@"), bodyAddress.getCellStyle().getDataFormat());
+        assertEquals(workbook.createDataFormat().getFormat("AM/PM h:mm:ss;@"), bodyDate.getCellStyle().getDataFormat());
+    }
+
+    void assertStyle(CellStyle o1, CellStyle o2){
+        assertEquals(o1.getBorderBottom(), o2.getBorderBottom());
+        assertEquals(o1.getBorderLeft(), o2.getBorderLeft());
+        assertEquals(o1.getBorderRight(), o2.getBorderRight());
+        assertEquals(o1.getBorderTop(), o2.getBorderTop());
+        assertEquals(o1.getFillBackgroundColor(), o2.getFillBackgroundColor());
+        assertEquals(o1.getFillForegroundColor(), o2.getFillForegroundColor());
+        assertEquals(o1.getFillPattern(), o2.getFillPattern());
+    }
+    Map<String, CellStyle> getStyle(Workbook workbook) {
+        DefaultHeaderStyle defaultHeaderStyle = new DefaultHeaderStyle();
+        DefaultBodyStyle defaultBodyStyle = new DefaultBodyStyle();
+        BackgroundBlueAndEnableDefaultStyle backgroundBlueAndEnableDefaultStyle = new BackgroundBlueAndEnableDefaultStyle();
+        ThinLine thinLine = new ThinLine();
+
+        CellStyle headerName = workbook.createCellStyle();
+        CellStyle headerDate = workbook.createCellStyle();
+        CellStyle bodyAddress = workbook.createCellStyle();
+        CellStyle bodyDate = workbook.createCellStyle();
+
+        short addressFormat = workbook.createDataFormat().getFormat("@@@");
+        short dateFormat = workbook.createDataFormat().getFormat("AM/PM h:mm:ss;@");
+
+        bodyAddress.setDataFormat(addressFormat);
+        bodyDate.setDataFormat(dateFormat);
+
+        defaultHeaderStyle.configure(headerName);
+        defaultBodyStyle.configure(bodyAddress);
+        backgroundBlueAndEnableDefaultStyle.configure(bodyAddress);
+        thinLine.configure(headerDate);
+        defaultBodyStyle.configure(bodyDate);
+
+        return Map.of("headerName", headerName, "headerDate", headerDate, "bodyAddress", bodyAddress, "bodyDate", bodyDate);
+    }
+    Map<String, List<Cell>> getExcelSheetMap(List<Row> rows) {
+        Row header = rows.remove(0);
+        Row body = rows.remove(1);
+
+        List<Cell> headerCells = new ArrayList<>();
+        List<Cell> bodyCells = new ArrayList<>();
+
+        header.iterator().forEachRemaining(headerCells :: add);
+        body.iterator().forEachRemaining(bodyCells :: add);
+
+        return Map.of("header", headerCells, "body", bodyCells);
     }
 }

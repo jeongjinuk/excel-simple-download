@@ -103,7 +103,7 @@ public class ExcelSheetHelper implements SheetHelper {
         cell.setCellFormula(formula);
     }
 
-    <T> void setCellValue(Field field, Cell cell, T data) {
+    void setCellValue(Field field, Cell cell, Object data) {
         try {
             field.setAccessible(true);
             Object o = field.get(data);

@@ -15,13 +15,11 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toMap;
 
 public final class ExcelResourceFactory {
-    private ExcelResourceFactory() {
-    }
-
+    private ExcelResourceFactory() {}
     public static ExcelResource prepareExcelResource(Class<?> type, Workbook workbook) {
         Map<Field, ExcelColumn> fieldResource = prepareFieldResource(type);
 
-        fieldResourceValidate(fieldResource, type);
+        validate(fieldResource, type);
 
         List<? extends Formula> formulaResource = prepareFormulaResource(type);
 
@@ -34,7 +32,6 @@ public final class ExcelResourceFactory {
                 fieldNameWithColumnIndexResource,
                 excelStyleResource);
     }
-
     private static Map<Field, ExcelColumn> prepareFieldResource(Class<?> type) {
         return ReflectionUtils.getFieldWithAnnotationList(type, ExcelColumn.class, true).stream()
                 .collect(
@@ -71,9 +68,7 @@ public final class ExcelResourceFactory {
         return new ExcelStyleResourceFactory(fields,defaultStyle,workbook)
                 .createExcelStyleResource();
     }
-
-
-    private static void fieldResourceValidate(Map<Field, ExcelColumn> resource, Class<?> type) {
+    private static void validate(Map<Field, ExcelColumn> resource, Class<?> type) {
         if (resource.isEmpty()) {
             throw new NotFoundExcelColumnAnnotationException(String.format("%s has not @ExcelColumn at all", type));
         }

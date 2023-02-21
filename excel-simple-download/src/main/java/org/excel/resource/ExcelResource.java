@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-
 public final class ExcelResource {
     private final Map<Field, ExcelColumn> fieldResource;
     private final List<? extends Formula> formulaResource;

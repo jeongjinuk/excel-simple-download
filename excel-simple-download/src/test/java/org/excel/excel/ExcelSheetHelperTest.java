@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExcelSheetHelperTest {
     @Test
-    @DisplayName("변경중 - excelSheetHelper에서 명시적으로 표시한 예외가 정상작동하는지 여부 테스트, 필드이름을 가지고 cell 의 주소를 반환하는 메서드들")
+    @DisplayName("excelSheetHelper에서 명시적으로 표시한 예외가 정상작동하는지 여부 테스트, 필드이름을 가지고 cell 의 주소를 반환하는 메서드들")
     void excelSheetHelperExceptionTest(){
         ExcelSheetHelper excelSheetHelper = new ExcelSheetHelper(new HashMap<>());
 
@@ -25,7 +25,7 @@ class ExcelSheetHelperTest {
     }
 
     @Test
-    @DisplayName("변경중 - excelSheetHelper의 최상단 기능 테스트, getCell(), getRow(), getCellAddress(), containsFieldName() 이 기능들을 다른 기능에서 사용하기 때문에 이것만 테스트")
+    @DisplayName("excelSheetHelper의 최상단 기능 테스트, getCell(), getRow(), getCellAddress(), containsFieldName() 이 기능들을 다른 기능에서 사용하기 때문에 이것만 테스트")
     void excelSheetHelperFunctionTest(){
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFRow row = workbook.createSheet().createRow(0);

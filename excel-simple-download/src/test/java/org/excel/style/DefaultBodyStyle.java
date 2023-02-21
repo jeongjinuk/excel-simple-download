@@ -10,7 +10,5 @@ public class DefaultBodyStyle implements Style {
         cellStyle.setBorderRight(BorderStyle.MEDIUM);
         cellStyle.setBorderTop(BorderStyle.MEDIUM);
         cellStyle.setBorderBottom(BorderStyle.MEDIUM);
-        cellStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
-        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
     }
 }

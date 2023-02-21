@@ -30,9 +30,9 @@ class ExcelResourceFactoryTest {
     }
 
     void assertThat(ExcelResource excelResource){
-        Map<Field, ExcelColumn> fieldResource = excelResource.getFieldResource(); // 필드가 존재하는지 검사
-        Formula actualCounter = excelResource.getFormulaResource().get(0); // counter가 존재하는지만 검사하면됨
-        Map<String, Integer> columnIndexMap = excelResource.getFieldNameWithColumnIndexResource(); // 컬럼인덱스가 존재하기만 하면됨
+        Map<Field, ExcelColumn> fieldResource = excelResource.getFieldResource();
+        Formula actualCounter = excelResource.getFormulaResource().get(0);
+        Map<String, Integer> columnIndexMap = excelResource.getFieldNameWithColumnIndexResource();
         List<String> actualFieldList = fieldResource.keySet().stream().map(Field :: getName).collect(Collectors.toList());
 
         assertEquals(fieldList, actualFieldList);
