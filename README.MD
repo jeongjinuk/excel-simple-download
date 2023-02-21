@@ -82,7 +82,7 @@ public class Application {
 }
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b987a1da-7927-4f45-82d2-88cc81615383/Untitled.png)
+![Untitled](https://github.com/jeongjinuk/excel-simple-download/issues/3#issue-1593022854)
 
 위와 같이 `@ExcelColumn`을 사용하여 간단히 Excel의 필드이름을 지정할 수 있습니다.
 
