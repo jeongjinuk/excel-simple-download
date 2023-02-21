@@ -102,7 +102,7 @@ public class Application {
 
 ```java
 @Builder
-**@ExcelFormula(formulaClass = AverageFormula.class)**
+@ExcelFormula(formulaClass = AverageFormula.class)
 public class ExcelDto {
     @ExcelColumn(headerName = "연번코드")
     private String indexCode;
@@ -175,16 +175,16 @@ public class MyExcelFile<T> extends ExcelFile<T> {
 ```java
 @Builder
 @ExcelFormula(formulaClass = AverageFormula.class)
-**@ExcelStyle(headerStyleClass = DefaultHeaderStyle.class, bodyStyleClass = DefaultBodyStyle.class)**
+@ExcelStyle(headerStyleClass = DefaultHeaderStyle.class, bodyStyleClass = DefaultBodyStyle.class)
 public class ExcelDto {
     @ExcelColumn(headerName = "연번코드")
     private String indexCode;
 
-    **@ExcelStyle(headerStyleClass = BackgroundBlue.class, bodyStyleClass = DefaultHeaderStyle.class)**
+    @ExcelStyle(headerStyleClass = BackgroundBlue.class, bodyStyleClass = DefaultHeaderStyle.class)
     @ExcelColumn(headerName = "나이")
     private int age;
 
-    **@ExcelStyle(format = "yyyy-mm-dd")**
+    @ExcelStyle(format = "yyyy-mm-dd")
     @ExcelColumn(headerName = "생일")
     private LocalDate birthDay;
 }
@@ -198,10 +198,10 @@ bodyStyleClass = , //  sheet에 삽입된 모든 데이터 셀에 적용되는 �
 format = ) //sheet에 삽입된 모든 데이터 셀에 적용되는 데이터 포멧
 public class ExcelDto{
 		
-		@ExcelStyle(headerStyleClass = , // 현재 column에 삽입된 필드이름에만 적용되는 스타일
-								bodyStyleClass = , // 현재 column에 삽입된 데이터 셀에만 적용되는 스타일
-								format = ) // 현재 column에 삽입된 데이터 셀에만 적용되는 데이터 포멧
-    int val;
+	@ExcelStyle(headerStyleClass = , // 현재 column에 삽입된 필드이름에만 적용되는 스타일
+		    bodyStyleClass = , // 현재 column에 삽입된 데이터 셀에만 적용되는 스타일
+		    format = ) // 현재 column에 삽입된 데이터 셀에만 적용되는 데이터 포멧
+	int val;
 }
 ```
 
