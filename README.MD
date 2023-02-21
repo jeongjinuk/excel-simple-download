@@ -170,7 +170,7 @@ public class MyExcelFile<T> extends ExcelFile<T> {
 
 만약 아래와 같이 스타일 설정이 필요하다면 `@ExcelStyle`을 사용하면 됩니다. `@ExcelStyle`에는 총 3가지 옵션이 존재하며 어노테이션의 위치에 따라 Sheet에 대한 옵션과 Column에 대한 옵션으로 나누어 집니다. 
 
-![Untitled 1](https://user-images.githubusercontent.com/66084125/220286466-754023fa-a356-4443-b1ba-8f2255259f0d.png)
+![Untitled 2](https://user-images.githubusercontent.com/66084125/220286486-b9bef40c-bd9c-49ea-964d-1e8be02ec9c8.png)
 
 ```java
 @Builder
