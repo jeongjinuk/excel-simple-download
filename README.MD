@@ -98,7 +98,7 @@ public class Application {
 
 만약 아래와 같이 수식을 삽입해야한다면 `@ExcelFormula` 를 사용하면 됩니다. `@ExcelFormula(foramulaClass = class)`에 지정된 클래스를 찾아 실행 시킵니다. `formulaClass` 옵션을 사용하려면 `Formula interface`를 상속받아 사용하세요.
 
-![Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/39b23485-c21a-4061-94cf-184d27843fce/Untitled.png)
+![Untitled 1](https://user-images.githubusercontent.com/66084125/220286466-754023fa-a356-4443-b1ba-8f2255259f0d.png)
 
 ```java
 @Builder
