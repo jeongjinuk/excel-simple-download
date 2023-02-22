@@ -19,7 +19,7 @@ Excel 시트 생성 및 Excel 관련 기능을 빠르게 구현하는 Excel modu
 <dependency>
 	    <groupId>com.github.jeongjinuk</groupId>
 	    <artifactId>excel-simple-download</artifactId>
-	    <version>0.0.1</version>
+	    <version>v0.1.0</version>
 </dependency>
 ```
 ---
