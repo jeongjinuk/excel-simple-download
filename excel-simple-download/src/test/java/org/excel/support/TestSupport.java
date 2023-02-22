@@ -1,10 +1,22 @@
 package org.excel.support;
 
 import org.apache.poi.ss.usermodel.*;
+import org.excel.excel.sheet.CellAddressType;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.util.regex.Pattern;
 
 public class TestSupport {
+
+    @Test
+    void test(){
+        String target = "A1";
+        String ROW_ABS_PATTERN = "([A-Z]+)([0-9]+)";
+        String str = target.replaceAll(ROW_ABS_PATTERN, "$1\\$$2");
+        System.out.println(str);
+    }
+
     public static void workBookOutput(Workbook workbook) {
         StringBuilder stringBuilder = new StringBuilder(System.getProperty("user.dir")).append("\\src\\test\\resources");
         stringBuilder.append(File.separator);

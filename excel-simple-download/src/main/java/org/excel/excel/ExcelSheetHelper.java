@@ -77,7 +77,7 @@ public class ExcelSheetHelper implements SheetHelper {
         }
         if (o instanceof LocalTime){
             LocalTime tmp = (LocalTime) o;
-            cell.setCellValue(LocalDateTime.of(LocalDate.EPOCH,tmp));
+            cell.setCellValue(LocalDateTime.of(LocalDate.MIN,tmp));
             return;
         }
         if (o instanceof LocalDateTime){
