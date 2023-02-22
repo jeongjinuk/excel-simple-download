@@ -1,7 +1,7 @@
 package org.excel.style;
 
 import org.apache.poi.ss.usermodel.*;
-import org.excel.excel.style.Style;
+import org.excel.excel_file.style.Style;
 
 public class DefaultBodyStyle implements Style {
     @Override

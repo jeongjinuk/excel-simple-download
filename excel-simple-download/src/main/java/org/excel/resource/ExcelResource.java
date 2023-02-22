@@ -1,7 +1,7 @@
 package org.excel.resource;
 
 import org.excel.ExcelColumn;
-import org.excel.excel.formula.Formula;
+import org.excel.excel_file.formula.Formula;
 
 import java.lang.reflect.Field;
 import java.util.List;

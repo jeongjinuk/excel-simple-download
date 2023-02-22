@@ -3,7 +3,7 @@ package org.excel.style;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.excel.excel.style.Style;
+import org.excel.excel_file.style.Style;
 
 public class BackgroundBlueAndEnableDefaultStyle implements Style {
     @Override

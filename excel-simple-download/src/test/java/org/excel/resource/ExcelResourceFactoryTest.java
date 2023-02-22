@@ -3,7 +3,7 @@ package org.excel.resource;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.excel.ExcelColumn;
 import org.excel.dto.TestDTO;
-import org.excel.excel.formula.Formula;
+import org.excel.excel_file.formula.Formula;
 import org.excel.formula.Counter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

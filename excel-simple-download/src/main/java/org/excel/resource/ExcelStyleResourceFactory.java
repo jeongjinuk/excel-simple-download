@@ -3,9 +3,9 @@ package org.excel.resource;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.excel.ExcelStyle;
-import org.excel.excel.style.NoStyle;
-import org.excel.excel.style.Style;
-import org.excel.excel.style.StyleLocation;
+import org.excel.excel_file.style.NoStyle;
+import org.excel.excel_file.style.Style;
+import org.excel.excel_file.style.StyleLocation;
 
 import java.lang.reflect.Field;
 import java.util.List;

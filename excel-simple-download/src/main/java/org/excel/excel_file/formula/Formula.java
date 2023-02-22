@@ -1,6 +1,6 @@
-package org.excel.excel.formula;
+package org.excel.excel_file.formula;
 
-import org.excel.excel.sheet.SheetHelper;
+import org.excel.excel_file.sheet.SheetHelper;
 
 import java.util.List;
 public interface Formula {

@@ -2,7 +2,7 @@ package org.excel.style;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.excel.excel.style.Style;
+import org.excel.excel_file.style.Style;
 
 public class ThinLine implements Style {
     @Override

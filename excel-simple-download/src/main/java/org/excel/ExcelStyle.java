@@ -1,7 +1,7 @@
 package org.excel;
 
-import org.excel.excel.style.NoStyle;
-import org.excel.excel.style.Style;
+import org.excel.excel_file.style.NoStyle;
+import org.excel.excel_file.style.Style;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

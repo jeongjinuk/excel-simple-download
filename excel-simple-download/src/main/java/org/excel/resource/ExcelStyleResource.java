@@ -1,7 +1,7 @@
 package org.excel.resource;
 
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.excel.excel.style.StyleLocation;
+import org.excel.excel_file.style.StyleLocation;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
-package org.excel.excel;
+package org.excel.excel_file;
 
 import org.apache.poi.ss.usermodel.*;
-import org.excel.excel.style.StyleLocation;
+import org.excel.excel_file.style.StyleLocation;
 import org.excel.resource.ExcelResource;
 import org.excel.resource.ExcelResourceFactory;
 

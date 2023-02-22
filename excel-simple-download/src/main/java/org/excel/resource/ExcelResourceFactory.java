@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.excel.ExcelColumn;
 import org.excel.ExcelFormula;
 import org.excel.ExcelStyle;
-import org.excel.excel.formula.Formula;
+import org.excel.excel_file.formula.Formula;
 import org.excel.exception.NotFoundExcelColumnAnnotationException;
 
 import java.lang.reflect.Field;
