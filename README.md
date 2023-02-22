@@ -4,6 +4,26 @@ Excel 시트 생성 및 Excel 관련 기능을 빠르게 구현하는 Excel modu
 
 ---
 
+## JitPack에서 excel-simple-download 사용하기
+
+```xml
+<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+</repositories>
+```
+
+```xml
+<dependency>
+	    <groupId>com.github.jeongjinuk</groupId>
+	    <artifactId>excel-simple-download</artifactId>
+	    <version>Tag</version>
+</dependency>
+```
+---
+
 ## 기본 필수 구현
 
 `ExcelFile<T>`를 상속 받아 `renderExcel(List<T> list)`을 구현할 수 있습니다. 또한 생성자를 통해 원하는 `WorkBook`구현을 선택할 수 있습니다. 만약 `List<T> data` 에 대한 검증이 필요하다면 `validate(List<T> data)` 를 재정의하면 됩니다.
