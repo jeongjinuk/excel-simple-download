@@ -4,7 +4,6 @@ public enum CellAddressType {
     ROW_ABS,
     COL_ABS,
     ABS;
-
     private static final String ABS_PATTERN = "([A-Z]+)([0-9]+)";
     public static String convert(String str, CellAddressType type){
         switch (type){
@@ -18,14 +17,12 @@ public enum CellAddressType {
                 throw new UnsupportedOperationException();
         }
     }
-
     private static String convertRowABS(String str){
         return  str.replaceAll(ABS_PATTERN,"$1\\$$2");
     }
     private static String convertColABS(String str){
         return str.replaceAll(ABS_PATTERN,"\\$$1$2");
     }
-
     private static String convertABS(String str){
         return str.replaceAll(ABS_PATTERN,"\\$$1\\$$2");
     }

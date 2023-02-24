@@ -6,7 +6,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public final class ReflectionUtils {
@@ -18,11 +21,11 @@ public final class ReflectionUtils {
                 .filter(field -> field.isAnnotationPresent(annotation))
                 .collect(Collectors.toList());
     }
-    static List<? extends Annotation> getClassAnnotationList(Class<?> clazz, final Class<? extends Annotation> annotation, boolean superClasses) {
+    static <T extends Annotation> Optional<T> getOptionalClassAnnotation(Class<?> clazz, final Class<T> annotation, boolean superClasses) {
         return getAllClassesIncludingSuperClasses(clazz, superClasses).stream()
-                .map(c -> c.getAnnotationsByType(annotation))
-                .flatMap(Arrays :: stream)
-                .collect(Collectors.toList());
+                .filter(c -> c.isAnnotationPresent(annotation))
+                .map(c -> c.getDeclaredAnnotation(annotation))
+                .findAny();
     }
     static <T> T getInstance(Class<T> clazz) {
         try {

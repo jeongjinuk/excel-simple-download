@@ -6,11 +6,13 @@ import org.excel.style.BackgroundBlueAndEnableDefaultStyle;
 import org.excel.style.DefaultBodyStyle;
 import org.excel.style.DefaultHeaderStyle;
 import org.excel.style.ThinLine;
+import org.excel.support.TestSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -39,6 +41,7 @@ public class WorkBookTest {
         MySXXFS<TestDTO> mySXXFS = new MySXXFS<>(list, TestDTO.class);
         Workbook workbook = mySXXFS.getWorkbook();
         assertThat(workbook);
+        TestSupport.workBookOutput(workbook);
     }
     void assertThat(Workbook workbook) {
         assertFormula(workbook);

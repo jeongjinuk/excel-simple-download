@@ -10,18 +10,20 @@ import org.excel.exception.NotFoundExcelColumnAnnotationException;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
 public final class ExcelResourceFactory {
-    private ExcelResourceFactory() {}
+    private ExcelResourceFactory() {
+    }
     public static ExcelResource prepareExcelResource(Class<?> type, Workbook workbook) {
         Map<Field, ExcelColumn> fieldResource = prepareFieldResource(type);
 
         validate(fieldResource, type);
 
-        List<? extends Formula> formulaResource = prepareFormulaResource(type);
+        List<Formula> formulaResource = prepareFormulaResource(type);
 
         Map<String, Integer> fieldNameWithColumnIndexResource = prepareFieldNameWithColumnIndexResource(fieldResource);
 
@@ -41,12 +43,17 @@ public final class ExcelResourceFactory {
                                 (field, annotation) -> field,
                                 LinkedHashMap :: new));
     }
-    private static List<? extends Formula> prepareFormulaResource(Class<?> type) {
-        return ReflectionUtils.getClassAnnotationList(type, ExcelFormula.class, false).stream()
-                .map(annotation -> ((ExcelFormula) annotation).formulaClass())
-                .flatMap(Arrays :: stream)
-                .map(ReflectionUtils :: getInstance)
-                .collect(Collectors.toList());
+    private static List<Formula> prepareFormulaResource(Class<?> type) {
+        List<Formula> formulas = new ArrayList<>();
+        Consumer<ExcelFormula> consumer = (excelFormula) -> Stream.of(excelFormula)
+                .map(ExcelFormula::formulaClass)
+                .flatMap(Arrays::stream)
+                .map(ReflectionUtils::getInstance)
+                .forEach(formulas::add);
+
+        ReflectionUtils.getOptionalClassAnnotation(type, ExcelFormula.class, false)
+                .ifPresent(consumer::accept);
+        return formulas;
     }
     private static Map<String, Integer> prepareFieldNameWithColumnIndexResource(Map<Field, ExcelColumn> fieldResource) {
         AtomicInteger atomicInteger = new AtomicInteger(0);
@@ -58,14 +65,9 @@ public final class ExcelResourceFactory {
                         LinkedHashMap :: new));
     }
     private static ExcelStyleResource prepareStyleResource(Class<?> type, Workbook workbook) {
-        Optional<ExcelStyle> defaultStyle = ReflectionUtils.getClassAnnotationList(type, ExcelStyle.class, false)
-                .stream()
-                .map(annotation -> (ExcelStyle) annotation)
-                .findAny();
-
+        Optional<ExcelStyle> defaultStyle = ReflectionUtils.getOptionalClassAnnotation(type, ExcelStyle.class, false);
         List<Field> fields = ReflectionUtils.getFieldWithAnnotationList(type, ExcelColumn.class, false);
-
-        return new ExcelStyleResourceFactory(fields,defaultStyle,workbook)
+        return new ExcelStyleResourceFactory(fields, defaultStyle, workbook)
                 .createExcelStyleResource();
     }
     private static void validate(Map<Field, ExcelColumn> resource, Class<?> type) {

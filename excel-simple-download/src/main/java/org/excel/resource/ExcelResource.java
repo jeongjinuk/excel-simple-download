@@ -9,11 +9,11 @@ import java.util.Map;
 
 public final class ExcelResource {
     private final Map<Field, ExcelColumn> fieldResource;
-    private final List<? extends Formula> formulaResource;
+    private final List<Formula> formulaResource;
     private final Map<String, Integer> fieldNameWithColumnIndexResource;
     private final ExcelStyleResource excelStyleResource;
 
-    ExcelResource(Map<Field, ExcelColumn> fieldResource, List<? extends Formula> formulaResource, Map<String, Integer> fieldNameWithColumnIndexResource, ExcelStyleResource excelStyleResource) {
+    ExcelResource(Map<Field, ExcelColumn> fieldResource, List<Formula> formulaResource, Map<String, Integer> fieldNameWithColumnIndexResource, ExcelStyleResource excelStyleResource) {
         this.fieldResource = fieldResource;
         this.formulaResource = formulaResource;
         this.fieldNameWithColumnIndexResource = fieldNameWithColumnIndexResource;
@@ -24,7 +24,7 @@ public final class ExcelResource {
         return fieldResource;
     }
 
-    public List<? extends Formula> getFormulaResource() {
+    public List<Formula> getFormulaResource() {
         return formulaResource;
     }
 
